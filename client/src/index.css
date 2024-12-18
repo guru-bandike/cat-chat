@@ -115,7 +115,6 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
-  letter-spacing: 0.04rem;
 }
 
 button:hover {

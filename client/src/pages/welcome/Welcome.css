@@ -40,6 +40,8 @@
   border: 1px solid var(--highlight-color);
   margin-top: 2rem;
   transition: all 0.15s ease-in;
+  font-size: 1.5rem;
+  padding: 0.3rem 0.5rem;
 }
 
 .get-started-btn:hover {
