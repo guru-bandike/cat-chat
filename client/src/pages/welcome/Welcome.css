@@ -1,0 +1,49 @@
+.welcome-contaiter {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--background-color);
+}
+
+.logo {
+  width: 10rem;
+  object-fit: cover;
+  margin-top: 5rem;
+}
+
+.welcome-text-container {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--secondary-color);
+}
+
+.slogan {
+  color: var(--highlight-color);
+  border-radius: 1rem;
+  text-decoration: underline;
+}
+
+.app-brief-text {
+  margin-top: 2rem;
+}
+
+.get-started-btn {
+  color: var(--highlight-color);
+  background-color: var(--primary-color);
+  border: 1px solid var(--highlight-color);
+  margin-top: 2rem;
+  transition: all 0.15s ease-in;
+}
+
+.get-started-btn:hover {
+  color: var(--background-color);
+  background-color: var(--highlight-color);
+  border: 1px solid var(--highlight-color);
+}
