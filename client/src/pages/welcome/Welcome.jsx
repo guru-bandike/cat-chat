@@ -1,7 +1,10 @@
 import './Welcome.css';
 import logo from '../../assets/logo.svg';
+import { useNavigate } from 'react-router-dom';
 
 function Welcome() {
+  const navigate = useNavigate();
+
   return (
     <div className="welcome-contaiter">
       <svg xmlns="http://www.w3.org/2000/svg" className="logo">
@@ -17,7 +20,9 @@ function Welcome() {
           you. Connect with people nearby or across the globe, explore different perspectives, and
           dive into meaningful conversations—all while expressing your inner feline!
         </p>
-        <button className="get-started-btn">Get Started</button>
+        <button className="get-started-btn" onClick={() => navigate('/cat-selection')}>
+          Get Started
+        </button>
       </div>
     </div>
   );
