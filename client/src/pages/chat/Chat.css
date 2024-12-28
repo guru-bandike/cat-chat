@@ -20,8 +20,15 @@
   margin-top: -0.5rem;
 }
 
+.search-box-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2%;
+}
+
 .chat-list-container .search-box {
-  width: calc(100% - 10px - 0.3rem);
+  width: 89%;
   background-color: var(--primary-color);
   border-radius: 5px;
   font-size: 1rem;
@@ -30,6 +37,17 @@
   border: 1px solid lightgray;
   padding: 0.4rem 0.1rem 0.4rem 0.7rem;
   font-family: 'Inter';
+}
+
+.show-new-users-btn {
+  width: 9%;
+  background: var(--primary-color);
+  border-radius: 0.2rem;
+  display: flex;
+  border: 1px solid #d3d3d3;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 /* Chat List  */
@@ -236,7 +254,8 @@
 }
 
 .send-message-btn:hover {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
+  scale: 1.1;
 }
 
 /* Chat Details  */

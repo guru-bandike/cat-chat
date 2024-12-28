@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { LuPlus } from 'react-icons/lu';
 
 import './Chat.css';
 import users from '../../data/users';
 import conversations from '../../data/conversations';
 import sendmessageIcon from '../../assets/send_with_cat_palm.svg';
+import toast from 'react-hot-toast';
 
 function Chat({ loggedInUser }) {
   const navigate = useNavigate();
@@ -14,6 +16,22 @@ function Chat({ loggedInUser }) {
   const [selectedUser, setSelectedUser] = useState(null);
   const [userConversations, setUserConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState(null);
+  const [ShowNewUsers, setShowNewUsers] = useState(false);
+
+  const filteredActiveConversations = userConversations.filter(
+    (c) =>
+      users
+        .find((u) => u.id == c.participants[1]) // Get current user
+        .name.toLowerCase()
+        .includes(searchText.toLowerCase()) // Ensure search name included
+  );
+
+  const filteredNewUsers = users.filter((u) =>
+    // Ensure users dont have active conversatons and search name inclued
+    userConversations.every(
+      (c) => c.participants[1] !== u.id && u.name.toLowerCase().includes(searchText.toLowerCase())
+    )
+  );
 
   useEffect(() => {
     // Ensure user logged-In
@@ -38,6 +56,7 @@ function Chat({ loggedInUser }) {
   function handleChatListItemSlection(conversation) {
     setSelectedConversation(conversation);
     setSelectedUser(users.find((user) => user.id === conversation.participants[1]));
+    setSearchText('');
   }
 
   function handleSendMessage() {
@@ -58,46 +77,94 @@ function Chat({ loggedInUser }) {
     setNewMessage(''); // Empty current message for further usage
   }
 
+  function handleShowNewUsers() {
+    setShowNewUsers((prevState) => !prevState);
+    setSearchText('');
+  }
+
+  function handleAddConversation(newUser) {
+    const newConversation = {
+      id: userConversations.length + 1,
+      participants: [1, newUser.id],
+      messages: [],
+    };
+    // Create new conversation
+    setUserConversations((prevConversations) => [...prevConversations, newConversation]);
+
+    setSearchText('');
+    setSelectedUser(newUser);
+    setShowNewUsers(false);
+    setSelectedConversation(newConversation);
+    toast.success('New Conversation Added!');
+  }
+
   return (
     <div className="chat-container">
       <div className="chat-list-container">
         <h2>Chats</h2>
-        <input
-          className="search-box"
-          type="text"
-          placeholder="Search or Start new coversation"
-          value={searchText}
-          onChange={(e) => {
-            setSearchText(e.target.value);
-          }}
-        ></input>
+        <div className="search-box-container">
+          <input
+            className="search-box"
+            type="text"
+            placeholder="Search Conversation"
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          ></input>
+          <div className="show-new-users-btn" onClick={handleShowNewUsers}>
+            <LuPlus width="100%" height="100%" color="#31a354" />
+          </div>
+        </div>
         <div className="chat-list">
-          {userConversations.map((conversation, index) => {
-            const targetUser = users.find((user) => user.id === conversation.participants[1]);
-            const lastMessage = conversation.messages.slice(-1)[0];
+          {!ShowNewUsers &&
+            filteredActiveConversations.map((conversation, index) => {
+              const participant = users.find((user) => user.id === conversation.participants[1]);
+              const lastMessage = conversation.messages.slice(-1)[0];
 
-            return (
-              <div
-                className={`chat-list-item ${selectedUser?.id === targetUser.id && 'selected'}`}
-                key={index}
-                onClick={() => {
-                  handleChatListItemSlection(conversation);
-                }}
-              >
-                <div className="item-head">
-                  <img className="avater" src={targetUser.dpUrl} />
+              return (
+                <div
+                  className={`chat-list-item ${selectedUser?.id === participant.id && 'selected'}`}
+                  key={index}
+                  onClick={() => {
+                    handleChatListItemSlection(conversation);
+                  }}
+                >
+                  <div className="item-head">
+                    <img className="avater" src={participant.dpUrl} />
+                  </div>
+                  <div className="item-body">
+                    <h3 className="user-name">{participant.name}</h3>
+                    <p className="last-message">
+                      {lastMessage &&
+                        (lastMessage.userId === loggedInUser.id
+                          ? `You: ${lastMessage.text}`
+                          : lastMessage.text)}
+                    </p>
+                  </div>
                 </div>
-                <div className="item-body">
-                  <h3 className="user-name">{targetUser.name}</h3>
-                  <p className="last-message">
-                    {lastMessage.userId === loggedInUser.id
-                      ? `You: ${lastMessage.text}`
-                      : lastMessage.text}
-                  </p>
+              );
+            })}
+          {ShowNewUsers &&
+            filteredNewUsers.map((newUser, index) => {
+              return (
+                <div
+                  className={`chat-list-item`}
+                  key={index}
+                  onClick={() => {
+                    handleAddConversation(newUser);
+                  }}
+                >
+                  <div className="item-head">
+                    <img className="avater" src={newUser.dpUrl} />
+                  </div>
+                  <div className="item-body">
+                    <h3 className="user-name">{newUser.name}</h3>
+                    <p className="last-message">{`A ${newUser.type.name}`}</p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
       <div className="chat-content-container">
@@ -105,11 +172,7 @@ function Chat({ loggedInUser }) {
           <>
             <div className="chat-participant-container">
               <div className="participant-avatar-wrapper">
-                <img
-                  className="participant-avatar"
-                  src="/src/assets/images/cats/Cyber_Cat.png"
-                  alt="avatar"
-                />
+                <img className="participant-avatar" src={selectedUser.dpUrl} alt="avatar" />
               </div>
               <div className="participant-info">
                 <div>
