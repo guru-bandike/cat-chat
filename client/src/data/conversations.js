@@ -33,11 +33,6 @@ const conversations = [
         text: 'It’s an art, really. But unlike a cat, I can’t get away with napping on my desk... yet.',
         time: '10:15 AM',
       },
-      {
-        userId: 1,
-        text: 'Keep trying. One day, they’ll accept our true nature as overworked indoor pets.',
-        time: '10:18 AM',
-      },
     ],
   },
   {
@@ -70,11 +65,6 @@ const conversations = [
         time: '11:10 AM',
       },
       { userId: 3, text: '‘Pay attention to me, or else.’ It’s a power move.', time: '11:12 AM' },
-      {
-        userId: 1,
-        text: 'True. The trick is maintaining the right amount of mystery and chaos.',
-        time: '11:15 AM',
-      },
     ],
   },
   {
@@ -144,7 +134,6 @@ const conversations = [
         text: 'Got it. They’ll never know if I’m a genius or just lazy.',
         time: '1:12 PM',
       },
-      { userId: 1, text: 'Exactly. Keep them guessing—it’s the cat way.', time: '1:15 PM' },
     ],
   },
   {
