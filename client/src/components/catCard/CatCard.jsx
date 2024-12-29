@@ -10,7 +10,7 @@ function CatCard({ cat, selectedCatId, setSelectedCatId }) {
         setSelectedCatId(id);
       }}
     >
-      <img className="card-img" src={'../src' + imageUrl} />
+      <img className="card-img" src={imageUrl} />
       <div className="card-body">
         <p className="cat-name">{name}</p>
         <p className="cat-personality">{personality}</p>
