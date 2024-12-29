@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LuPlus } from 'react-icons/lu';
+import { TiArrowBack } from 'react-icons/ti';
 
 import './Chat.css';
 import users from '../../data/users';
@@ -11,6 +12,8 @@ import toast from 'react-hot-toast';
 function Chat({ loggedInUser }) {
   const navigate = useNavigate();
   const messageEndRef = useRef(null);
+  const [isConversationOpened, setIsConversationOpened] = useState(false);
+  const [isChatDetailsOpened, setIsChatDetailsOpened] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [newMessage, setNewMessage] = useState('');
   const [selectedUser, setSelectedUser] = useState(null);
@@ -53,10 +56,16 @@ function Chat({ loggedInUser }) {
     messageEndRef.current?.scrollIntoView();
   }, [selectedConversation]);
 
+  function handleNavBack() {
+    if (isChatDetailsOpened) return setIsChatDetailsOpened(false);
+    if (isConversationOpened) return setIsConversationOpened(false);
+  }
+
   function handleChatListItemSlection(conversation) {
     setSelectedConversation(conversation);
     setSelectedUser(users.find((user) => user.id === conversation.participants[1]));
     setSearchText('');
+    setIsConversationOpened(true);
   }
 
   function handleSendMessage() {
@@ -94,13 +103,18 @@ function Chat({ loggedInUser }) {
     setSearchText('');
     setSelectedUser(newUser);
     setShowNewUsers(false);
+    setIsConversationOpened(true);
     setSelectedConversation(newConversation);
     toast.success('New Conversation Added!');
   }
 
   return (
     <div className="chat-container">
-      <div className="chat-list-container">
+      <div
+        className={`chat-list-container ${
+          !isConversationOpened && !isChatDetailsOpened ? 'opened' : ''
+        }`}
+      >
         <h2>Chats</h2>
         <div className="search-box-container">
           <input
@@ -167,10 +181,19 @@ function Chat({ loggedInUser }) {
             })}
         </div>
       </div>
-      <div className="chat-content-container">
+      <div
+        className={`chat-content-container ${
+          isConversationOpened && !isChatDetailsOpened ? 'opened' : ''
+        }`}
+      >
         {selectedConversation ? (
           <>
-            <div className="chat-participant-container">
+            <div
+              className="chat-participant-container"
+              onClick={() => {
+                setIsChatDetailsOpened(true);
+              }}
+            >
               <div className="participant-avatar-wrapper">
                 <img className="participant-avatar" src={selectedUser.dpUrl} alt="avatar" />
               </div>
@@ -222,7 +245,7 @@ function Chat({ loggedInUser }) {
           </div>
         )}
       </div>
-      <div className="chat-details-container">
+      <div className={`chat-details-container ${isChatDetailsOpened ? 'opened' : ''}`}>
         {selectedConversation ? (
           <>
             <div className="about-user-container">
@@ -273,6 +296,9 @@ function Chat({ loggedInUser }) {
           </div>
         )}
       </div>
+      <button className="nav-back-btn" onClick={handleNavBack}>
+        <TiArrowBack width="100%" height="100%" color="#31a354" size="100%" />
+      </button>
     </div>
   );
 }

@@ -3,6 +3,7 @@
   height: 100%;
   display: flex;
   gap: 10px;
+  position: relative;
 }
 
 /* Chat List  */
@@ -308,4 +309,52 @@
   margin-top: 45%;
   text-align: center;
   color: #5f6469;
+}
+
+.nav-back-btn {
+  display: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  position: fixed;
+  z-index: 10;
+  bottom: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+.nav-back-btn:hover {
+  background-color: var(--light-highlight-color);
+}
+
+@media (max-width: 768px) {
+  .chat-list-container {
+    display: none;
+  }
+
+  .chat-list-container.opened {
+    display: block;
+    width: 100%;
+  }
+
+  .chat-content-container {
+    display: none;
+  }
+
+  .chat-content-container.opened {
+    display: flex;
+    width: 100%;
+  }
+
+  .chat-details-container {
+    display: none;
+  }
+
+  .chat-details-container.opened {
+    display: flex;
+    width: 100%;
+  }
+
+  .nav-back-btn {
+    display: block;
+  }
 }

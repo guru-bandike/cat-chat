@@ -16,3 +16,9 @@
   align-items: center;
   background-color: var(--secondary-color);
 }
+
+@media (max-width: 768px) {
+  .main-containter {
+    width: 90%;
+  }
+}
