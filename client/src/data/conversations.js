@@ -5,36 +5,47 @@ const conversations = [
     messages: [
       {
         userId: 1,
-        text: 'Rajesh, don’t you think meetings feel like chasing a laser pointer? Pointless but irresistible.',
-        time: '10:00 AM',
+        text: 'Rajesh, did you know that Cat-Chat lets you connect with people who share your interests? I just matched with someone who loves sci-fi and cats!',
+        time: '9:00 AM',
       },
       {
-        userId: 2,
-        text: 'Oh, totally! And the moment you think you’ve caught something meaningful, it’s gone.',
-        time: '10:02 AM',
-      },
-      {
-        userId: 1,
-        text: 'Right? And then someone throws in another shiny topic. It’s exhausting.',
-        time: '10:05 AM',
-      },
-      {
-        userId: 2,
-        text: 'Tell me about it. I just zone out and pretend I’m thinking about ‘strategy’ while actually planning my next nap.',
-        time: '10:08 AM',
+        userId: 4,
+        text: 'Really? That’s so cool, Rajesh! I’ve been exploring the personality tags feature. It’s fascinating how accurate it feels.',
+        time: '9:03 AM',
       },
       {
         userId: 1,
-        text: 'Classic cat energy. Nap planning is the key to survival.',
-        time: '10:12 AM',
+        text: 'Oh, totally! I added “bookworm,” “night owl,” and “coffee addict” to mine. Now I’m discovering some really interesting people!',
+        time: '9:06 AM',
       },
       {
-        userId: 2,
-        text: 'It’s an art, really. But unlike a cat, I can’t get away with napping on my desk... yet.',
-        time: '10:15 AM',
+        userId: 4,
+        text: 'I love that! I added “plant parent” and “yoga enthusiast.” It’s such a refreshing way to meet like-minded folks.',
+        time: '9:09 AM',
+      },
+      {
+        userId: 1,
+        text: 'It really is. And the chat suggestions based on shared interests make it so easy to start a conversation.',
+        time: '9:12 AM',
+      },
+      {
+        userId: 4,
+        text: 'Exactly! I’ve already connected with someone who gave me tips on caring for succulents. It’s like having a community at your fingertips!',
+        time: '9:15 AM',
+      },
+      {
+        userId: 1,
+        text: 'That’s amazing! I wonder if they’ll add more niche tags, like “retro gamer” or “indie movie buff.”',
+        time: '9:18 AM',
+      },
+      {
+        userId: 4,
+        text: 'That would be awesome. The more personalized, the better. Cat-Chat feels like a whole new way to build friendships.',
+        time: '9:21 AM',
       },
     ],
   },
+
   {
     id: 2,
     participants: [1, 3],
