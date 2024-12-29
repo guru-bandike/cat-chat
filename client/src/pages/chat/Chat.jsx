@@ -40,6 +40,8 @@ function Chat({ loggedInUser }) {
     // Ensure user logged-In
     if (!loggedInUser) return navigate('/');
 
+    toast.success(`Wellcome ${loggedInUser.name}`);
+
     // Update User Conversations
     setUserConversations(
       conversations.filter((c) => c.participants.some((id) => id === loggedInUser.id))
